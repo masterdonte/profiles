@@ -1,4 +1,4 @@
-package com.donte.profiles.config.development;
+package com.donte.profiles.config.memoauth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

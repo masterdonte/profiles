@@ -1,6 +1,9 @@
 package com.donte.profiles.model;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +15,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user")
-public class User{
+public class UserApp{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -124,7 +130,7 @@ public class User{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		UserApp other = (UserApp) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -137,6 +143,14 @@ public class User{
 	public String toString() {
 		return "User [id=" + id + ", login=" + login + ", name=" + name + ", email=" + email + ", pass=" + pass
 				+ ", active=" + active + ", created=" + created + ", updated=" + updated + "]";
+	}
+	
+	//FIXME corrigir
+	public Collection<? extends GrantedAuthority> getRoles() {
+		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
+		return authorities;
 	}
 
 }
