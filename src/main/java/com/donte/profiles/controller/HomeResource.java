@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.donte.profiles.config.BasicConfig;
-import com.donte.profiles.model.User;
+import com.donte.profiles.config.SystemProps;
+import com.donte.profiles.model.UserApp;
 import com.donte.profiles.repository.UserRepository;
 
 @RestController
@@ -22,7 +22,7 @@ import com.donte.profiles.repository.UserRepository;
 public class HomeResource {
 	
 	@Autowired
-	private BasicConfig configuration;
+	private SystemProps configuration;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -35,15 +35,14 @@ public class HomeResource {
 	
 	@GetMapping("/users")
 	@PreAuthorize("hasRole('USER') and hasAuthority('ROLE_ADMIN')")
-	public List<User> getUsers() {
+	public List<UserApp> getUsers() {
 		return userRepository.findAll();
 	}
 	
-	@GetMapping("/status1")
+	@GetMapping("/login")
 	@PreAuthorize("hasRole('MANAGER')")
 	public String getStatus1(Principal principal) {
-		System.out.println(principal.getName());
-		return "{\"OK1\"}";
+		return principal.getName();
 	}
 
 	@GetMapping("/roles")
@@ -58,12 +57,11 @@ public class HomeResource {
 		return msg;
 	}
 	
-	@GetMapping("/status3")
-	@PreAuthorize("hasRole('EMPLOYEE')")
+	@GetMapping("/nome")
+	@PreAuthorize("hasRole('MANAGER')")
 	public String getStatus3(HttpServletRequest request) {
 		Principal principal = request.getUserPrincipal();
-		System.out.println(principal.getName());
-		return "{\"OK3\"}";
+		return principal.getName();
 	}
 	
 }

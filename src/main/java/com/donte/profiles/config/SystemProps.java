@@ -4,8 +4,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties("basic")
-public class BasicConfig {
+@ConfigurationProperties("system")
+public class SystemProps {
 	
 	private boolean flag;
 	private String message;

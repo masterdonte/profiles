@@ -1,13 +1,13 @@
-package com.donte.profiles.config.production;
+package com.donte.profiles.config.basicauth;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Profile("prod")
+@Profile("basic-auth")
 @Component
-public class ConfigProduction {
+public class BasicAuthComponent {
 	
 	@PostConstruct
 	public void init() {
