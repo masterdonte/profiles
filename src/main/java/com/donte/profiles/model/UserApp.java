@@ -32,7 +32,7 @@ public class UserApp{
 	private String email;
 	@JsonIgnore
 	private String pass;
-	private boolean active;
+	private Boolean active;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -150,7 +150,13 @@ public class UserApp{
 		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
+		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		return authorities;
 	}
+	/*TODO
+	 * 1 Adicionar permissoes no banco
+	 * 2 Implementar o logout usando jwt com blacklisted jwts
+	 * 3 Criar excecoes para JwtExpirado e Jwts Invalidos
+	 * 4 Usar o Lombok no projeto*/
 
 }

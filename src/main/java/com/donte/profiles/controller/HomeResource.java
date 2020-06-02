@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.donte.profiles.config.SystemProps;
 import com.donte.profiles.model.UserApp;
 import com.donte.profiles.repository.UserRepository;
+import com.donte.profiles.utils.SystemProps;
 
 @RestController
 @RequestMapping("/home")

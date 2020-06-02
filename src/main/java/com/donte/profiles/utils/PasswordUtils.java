@@ -1,4 +1,4 @@
-package com.donte.profiles.config;
+package com.donte.profiles.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

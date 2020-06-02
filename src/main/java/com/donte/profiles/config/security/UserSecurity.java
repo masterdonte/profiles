@@ -19,4 +19,9 @@ public class UserSecurity extends User {
 		return userApp;
 	}
 	
+	@Override
+	public boolean isEnabled() {
+		return userApp.isActive();
+	}
+	
 }
