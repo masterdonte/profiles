@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.donte.profiles.model.UserApp;
+import com.donte.profiles.model.Userapp;
 import com.donte.profiles.repository.UserRepository;
 import com.donte.profiles.utils.SystemProps;
 
@@ -35,7 +35,7 @@ public class HomeResource {
 	
 	@GetMapping("/users")
 	@PreAuthorize("hasRole('USER') and hasAuthority('ROLE_ADMIN')")
-	public List<UserApp> getUsers() {
+	public List<Userapp> getUsers() {
 		return userRepository.findAll();
 	}
 	

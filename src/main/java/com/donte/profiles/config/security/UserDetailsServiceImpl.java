@@ -1,12 +1,16 @@
 package com.donte.profiles.config.security;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.donte.profiles.model.UserApp;
+import com.donte.profiles.model.Userapp;
 import com.donte.profiles.repository.UserRepository;
 
 @Service
@@ -17,11 +21,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserApp user = userRepository.findByLogin(username);
+		Userapp user = userRepository.findByLogin(username);
 		if(user == null)
 			throw new UsernameNotFoundException("Wrong username or password");
-		return new UserSecurity(user);
+		return new UserSecurity(user, getAuthorities(user));
 	}
+	
+	private Set<SimpleGrantedAuthority> getAuthorities(Userapp user) {
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+		user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
+        return authorities;
+	}
+	
 	/*
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
