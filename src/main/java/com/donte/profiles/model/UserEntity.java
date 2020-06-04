@@ -29,7 +29,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @Table(name = "USER")
-public class Userapp{
+public class UserEntity{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,7 +69,6 @@ public class Userapp{
 
 	/*TODO
 	 * 1 Implementar o logout usando jwt com blacklisted jwts
-	 * 2 Criar excecoes para JwtExpirado e Jwts Invalidos
 	 */
 
 }

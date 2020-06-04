@@ -14,11 +14,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Profile("jwt-auth")
 @Configuration
 @EnableWebSecurity
-public class WebJwtConfig extends WebSecurityConfigurerAdapter {
+public class WebJwtConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 	
 	@Autowired
 	private UserDetailsService jwtUserDetailsService;
@@ -44,12 +46,29 @@ public class WebJwtConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable()
-		.authorizeRequests().antMatchers("/token","/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll()
+		httpSecurity
+		.cors().and()
+		.csrf().disable()
+		.authorizeRequests().antMatchers("/token/*","/home/test", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html").permitAll()
 		.anyRequest().authenticated()
-		//.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		//httpSecurity.cors().and().csrf().disable()//.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
 	}
+	
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedMethods("*").allowedOrigins("http://localhost:8000");
+    }
+	
+//	@Bean Without Spring Security this will work: 
+//	public WebMvcConfigurer corsConfigurer() {
+//		return new WebMvcConfigurer() {
+//			@Override
+//			public void addCorsMappings(CorsRegistry registry) {
+//				registry.addMapping("/**").maxAge(3600).allowCredentials(true).allowedOrigins("http://localhost:9000");
+//			}
+//		};
+//	}
 
 }

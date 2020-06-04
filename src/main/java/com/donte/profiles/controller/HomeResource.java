@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.donte.profiles.model.Userapp;
+import com.donte.profiles.model.UserEntity;
 import com.donte.profiles.repository.UserRepository;
 import com.donte.profiles.utils.SystemProps;
 
@@ -22,20 +22,20 @@ import com.donte.profiles.utils.SystemProps;
 public class HomeResource {
 	
 	@Autowired
-	private SystemProps configuration;
+	private SystemProps props;
 	
 	@Autowired
 	private UserRepository userRepository;
 	
-	@GetMapping("/props")
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER', 'ROLE_MANAGER')")
+	@GetMapping("/test")
+	@PreAuthorize("hasRole('USER')")
 	public String propriedades() {
-		return configuration.toString();
+		return props.toString();
 	}
 	
 	@GetMapping("/users")
 	@PreAuthorize("hasRole('USER') and hasAuthority('ROLE_ADMIN')")
-	public List<Userapp> getUsers() {
+	public List<UserEntity> getUsers() {
 		return userRepository.findAll();
 	}
 	
@@ -46,7 +46,6 @@ public class HomeResource {
 	}
 
 	@GetMapping("/roles")
-	@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 	public String getStatus2(Authentication authentication) {
 		String msg = authentication.getName() + ", You have";
 		
@@ -63,5 +62,5 @@ public class HomeResource {
 		Principal principal = request.getUserPrincipal();
 		return principal.getName();
 	}
-	
+
 }

@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.donte.profiles.model.Userapp;
+import com.donte.profiles.model.UserEntity;
 import com.donte.profiles.repository.UserRepository;
 
 @Service
@@ -21,13 +21,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Userapp user = userRepository.findByLogin(username);
+		UserEntity user = userRepository.findByLogin(username);
 		if(user == null)
 			throw new UsernameNotFoundException("Wrong username or password");
 		return new UserSecurity(user, getAuthorities(user));
 	}
 	
-	private Set<SimpleGrantedAuthority> getAuthorities(Userapp user) {
+	private Set<SimpleGrantedAuthority> getAuthorities(UserEntity user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
 		user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
         return authorities;
