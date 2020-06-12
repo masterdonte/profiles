@@ -49,7 +49,7 @@ public class WebJwtConfig extends WebSecurityConfigurerAdapter implements WebMvc
 		httpSecurity
 		.cors().and()
 		.csrf().disable()
-		.authorizeRequests().antMatchers("/token/*","/home/test", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html").permitAll()
+		.authorizeRequests().antMatchers("/token","/home/test", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html").permitAll()
 		.anyRequest().authenticated()
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

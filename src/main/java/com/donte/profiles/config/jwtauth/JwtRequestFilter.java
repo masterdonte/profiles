@@ -69,5 +69,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		response.getOutputStream().println(error.toJson());
 	}
+	
+	/*TODO
+	 * 1 Implementar o logout usando jwt com blacklisted jwts
+	 */
 
 }

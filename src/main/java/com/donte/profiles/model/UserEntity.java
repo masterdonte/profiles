@@ -20,14 +20,10 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
+@Data
 @Entity
-@Getter
-@Setter
-@EqualsAndHashCode
 @Table(name = "USER")
 public class UserEntity{
 
@@ -61,14 +57,6 @@ public class UserEntity{
 		updated = atual;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", name=" + name + ", email=" + email + ", pass=" + pass
-				+ ", active=" + active + ", created=" + created + ", updated=" + updated + "]";
-	}
-
-	/*TODO
-	 * 1 Implementar o logout usando jwt com blacklisted jwts
-	 */
+	
 
 }
